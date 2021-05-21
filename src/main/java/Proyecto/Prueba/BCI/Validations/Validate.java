@@ -1,0 +1,55 @@
+package Proyecto.Prueba.BCI.Validations;
+
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.List;
+import java.util.ListIterator;
+import java.util.Properties;
+
+import org.passay.CharacterRule;
+import org.passay.EnglishCharacterData;
+import org.passay.LengthRule;
+import org.passay.MessageResolver;
+import org.passay.PasswordData;
+import org.passay.PasswordValidator;
+import org.passay.PropertiesMessageResolver;
+import org.passay.Rule;
+import org.passay.RuleResult;
+import org.passay.WhitespaceRule;
+
+public class Validate {
+	
+	   public static List<String> ValidatePassword(String Pass) {
+		   try {
+		      List<Rule> rules = new ArrayList<>();
+		      rules.add(new CharacterRule(EnglishCharacterData.UpperCase, 1));
+		      rules.add(new CharacterRule(EnglishCharacterData.LowerCase, 1));
+		      rules.add(new CharacterRule(EnglishCharacterData.Digit, 1));
+
+		      Properties props = new Properties();
+		     
+				props.load(new FileInputStream("messages.properties"));
+			
+		      MessageResolver resolver = new PropertiesMessageResolver(props);
+
+		      PasswordValidator validator = new PasswordValidator(resolver, rules);
+		      PasswordData password = new PasswordData(Pass);
+		      RuleResult result = validator.validate(password);
+		      if(result.isValid()){
+		    	  return null;
+		      } else {
+		         return validator.getMessages(result);            
+		      }
+		      
+			  } catch (Exception e) {
+				   List<String> error = Arrays.asList(new String[]{e.getMessage()});
+				   return error;
+				}
+		   }
+
+}
