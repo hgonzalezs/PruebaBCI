@@ -55,7 +55,7 @@ public class User {
 
 	private Boolean IsActive = true;
 	
-	private String Token;
+	private String Token = "";
 
 	public String getToken() {
 		return Token;

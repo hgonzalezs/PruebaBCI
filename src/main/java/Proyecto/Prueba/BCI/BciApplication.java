@@ -28,6 +28,7 @@ public class BciApplication {
 				.addFilterAfter(new JWTAuthorizationFilter(), UsernamePasswordAuthenticationFilter.class)
 				.authorizeRequests()
 				.antMatchers(HttpMethod.GET, "/private/**").authenticated()
+				.antMatchers(HttpMethod.PUT, "/private/**").authenticated()
 				.anyRequest().permitAll();
 		}
 	}

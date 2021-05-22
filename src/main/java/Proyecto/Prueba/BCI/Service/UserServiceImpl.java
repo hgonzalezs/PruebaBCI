@@ -32,7 +32,8 @@ public class UserServiceImpl implements UserService{
 		List<User> result = (List<User>) entityManager.createQuery("FROM User WHERE email = '"+user.getEmail()+"'").getResultList();
 		
         if(result.isEmpty()) {
-        	return userRepository.save(user);
+        	userRepository.save(user);
+        	return user;
         } else {
         	return null;
         }
@@ -65,8 +66,23 @@ public class UserServiceImpl implements UserService{
 	public User Login(String Email, String Password) {
 		List<User> result = (List<User>) entityManager.createQuery("FROM User WHERE email = '"+Email+"' and password = '" + Password +"'").getResultList();
 		
-        if(!result.isEmpty()) {
-        	return result.iterator().next();
+       
+		if(!result.isEmpty()) {
+        	
+        	Optional<User> userDB = this.userRepository.findById(result.iterator().next().getId());
+        	
+    		if(userDB.isPresent()) {
+    			
+    			User userUpdate = userDB.get();
+    			Date updateDate = new Date();
+    			userUpdate.setLastLoginUser(updateDate);
+    			userRepository.save(userUpdate);
+
+            	return userUpdate;
+    		}else {
+    			return null;
+    		}
+        	
         } else {
         	return null;
         }

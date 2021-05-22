@@ -35,7 +35,7 @@ public class UserController {
 		return ResponseEntity.ok().body(userService.getAllUser());
 	}
 
-	@PostMapping("user/create")
+	@PostMapping("public/user/create")
 	public ResponseEntity<?> createUser(@Valid @RequestBody User user){
 		
 		List<String> pass = Validate.ValidatePassword(user.getPassword());
@@ -73,7 +73,7 @@ public class UserController {
 		return ResponseEntity.ok().body(userDb);		
 	}
 	
-	@PostMapping("user/login")
+	@PostMapping("public/user/login")
 	public ResponseEntity<?> login(@RequestParam String Email, @RequestParam String Password){
 		
 			

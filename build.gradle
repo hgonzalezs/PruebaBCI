@@ -24,6 +24,8 @@ dependencies {
 	compile group: 'org.passay', name: 'passay', version: '1.6.0'
 	runtimeOnly 'com.h2database:h2'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.hamcrest:hamcrest:2.2'
+    testImplementation 'org.hamcrest:hamcrest-library:2.2'
 }
 
 

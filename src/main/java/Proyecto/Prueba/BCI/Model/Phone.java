@@ -23,6 +23,14 @@ public class Phone {
 	
 	@Column(name = "CountryCode")
 	private int CountryCode;
+	
+	public long getId() {
+		return Id;
+	}
+
+	public void setId(long id) {
+		Id = id;
+	}
 
 	public long getNumber() {
 		return Number;
