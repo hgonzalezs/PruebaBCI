@@ -1,26 +1,19 @@
 package Proyecto.Prueba.BCI.Validations;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Properties;
 
 import org.passay.CharacterRule;
 import org.passay.EnglishCharacterData;
-import org.passay.LengthRule;
 import org.passay.MessageResolver;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.PropertiesMessageResolver;
 import org.passay.Rule;
 import org.passay.RuleResult;
-import org.passay.WhitespaceRule;
 
 public class Validate {
 	

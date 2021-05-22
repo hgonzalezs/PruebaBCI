@@ -4,3 +4,7 @@
 
 # Diagrama API
 ![alt text](https://github.com/hgonzalezs/PruebaBCI/blob/main/Diagrama.jpg?raw=true)
+
+Se utilizo
+- Gradle version 7.0.2
+- Java version 11 

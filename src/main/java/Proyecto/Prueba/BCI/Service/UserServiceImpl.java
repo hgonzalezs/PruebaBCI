@@ -1,13 +1,11 @@
 package Proyecto.Prueba.BCI.Service;
 
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,8 +30,7 @@ public class UserServiceImpl implements UserService{
 		List<User> result = (List<User>) entityManager.createQuery("FROM User WHERE email = '"+user.getEmail()+"'").getResultList();
 		
         if(result.isEmpty()) {
-        	userRepository.save(user);
-        	return user;
+        	return userRepository.save(user);
         } else {
         	return null;
         }
