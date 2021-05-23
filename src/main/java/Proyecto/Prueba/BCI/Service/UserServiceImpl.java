@@ -30,7 +30,8 @@ public class UserServiceImpl implements UserService{
 		List<User> result = (List<User>) entityManager.createQuery("FROM User WHERE email = '"+user.getEmail()+"'").getResultList();
 		
         if(result.isEmpty()) {
-        	return userRepository.save(user);
+        	userRepository.save(user);
+        	return user;
         } else {
         	return null;
         }

@@ -12,13 +12,13 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class GenerateJWT {
 	public static String getJWTToken(String username) {
-		String secretKey = "mySecretKey";
+		String secretKey = "BciSecretKey";
 		List<GrantedAuthority> grantedAuthorities = AuthorityUtils
 				.commaSeparatedStringToAuthorityList("ROLE_USER");
 		
 		String token = Jwts
 				.builder()
-				.setId("softtekJWT")
+				.setId("BCI")
 				.setSubject(username)
 				.claim("authorities",
 						grantedAuthorities.stream()

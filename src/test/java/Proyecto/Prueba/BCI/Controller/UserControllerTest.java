@@ -79,7 +79,7 @@ public class UserControllerTest {
     }
     
     @Test
-    void getAllUser_ForBidden() throws Exception {
+    void getAllUser_UnAuthorize() throws Exception {
     	
     	User user1 = new User();
     	user1.setId(1);
@@ -221,6 +221,44 @@ public class UserControllerTest {
         		.andExpect(MockMvcResultMatchers.status().isOk());
     }
     @Test
+    void updateUser_UnAutorize() throws Exception {
+
+    	User user1 = new User();
+    	user1.setId(2);
+    	user1.setName("Jose");
+    	user1.setEmail("Prueba@Prueba");
+    	user1.setPassword("Prueba123");
+    	user1.setToken("");
+    	Date now = new Date();
+    	user1.setCreatedUser(now);
+    	user1.setLastLoginUser(now);
+    	user1.setUpdatedUser(now);
+    	
+    	
+    	Phone phone = new Phone();
+    	phone.setId(2);
+    	phone.setCityCode(1);
+    	phone.setCountryCode(1);
+    	phone.setNumber(1);
+    	List<Phone> phones = Arrays.asList(phone);
+    
+   
+    	user1.setPhone(phones);
+
+    	when(userService.UpdateUser(Mockito.isA(User.class))).thenReturn(user1);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String requestJson = mapper.writeValueAsString(user1);
+        
+        
+        
+        mockMvc.perform(MockMvcRequestBuilders.put("/private/user/update/2")
+        		.header(HttpHeaders.AUTHORIZATION, user1.getToken())
+        		.content(requestJson)
+        		.contentType(MediaType.APPLICATION_JSON))
+        		.andExpect(MockMvcResultMatchers.status().isForbidden());
+    }
+    @Test
     void updateUser_BadRequest() throws Exception {
 
     	User user1 = new User();
@@ -241,7 +279,7 @@ public class UserControllerTest {
    
     	user1.setPhone(phones);
 
-    	when(userService.UpdateUser(user1)).thenReturn(user1);
+    	when(userService.UpdateUser(Mockito.isA(User.class))).thenReturn(user1);
 
         ObjectMapper mapper = new ObjectMapper();
         String requestJson = mapper.writeValueAsString(user1);

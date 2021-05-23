@@ -1,6 +1,7 @@
 package Proyecto.Prueba.BCI.Security;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,14 +22,17 @@ public class JWTAuthorizationFilter extends OncePerRequestFilter {
 
 	private final String HEADER = "Authorization";
 	private final String PREFIX = "Bearer ";
-	private final String SECRET = "mySecretKey";
+	private final String SECRET = "BciSecretKey";
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws ServletException, IOException {
 		try {
 			if (checkJWTToken(request, response)) {
 				Claims claims = validateToken(request);
-				if (claims.get("authorities") != null) {
+				Long exp= Long.valueOf(claims.get("exp").toString());
+				Date expiration = new Date(exp * 1000);
+				Date now = new Date();
+				if (claims.get("authorities") != null && now.before(expiration)) {
 					setUpSpringAuthentication(claims);
 				} else {
 					SecurityContextHolder.clearContext();
